@@ -7,7 +7,7 @@ const PaymentSchema = mongoose.Schema({
       require: true
   },
   amount: {
-      type: String,
+      type: Number,
       require: true
   },
   description: {
@@ -19,17 +19,4 @@ const PaymentSchema = mongoose.Schema({
   }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 const Payment = module.exports = mongoose.model('Payment',PaymentSchema)

@@ -31,12 +31,12 @@ app.get("/welcome", function (req, res) {
 app.post("/charge", (req, res) => {
     console.log("post request called");
     const card_number = req.body.card_number,
-          exp_month = req.body.exp_month,
-          exp_year = req.body.exp_year,
-          cvc = req.body.cvc,
-          amount = req.body.amount * 100,
-          email = req.body.email,
-          description = req.body.description;
+        exp_month = req.body.exp_month,
+        exp_year = req.body.exp_year,
+        cvc = req.body.cvc,
+        amount = req.body.amount * 100,
+        email = req.body.email,
+        description = req.body.description;
 
     stripe.tokens.create({
         card: {
@@ -47,8 +47,8 @@ app.post("/charge", (req, res) => {
         }
     }, function (err, token) {
         if (err) {
-             console.log('token error');
-             console.log(err.message);
+            console.log('token error');
+            console.log(err.message);
             var msg = err.message;
             res.json(msg);
         }
@@ -57,8 +57,8 @@ app.post("/charge", (req, res) => {
                 email: email,
                 source: token.id
             }).then(function (customer) {
-               if (customer) {
-                // console.log(customer);
+                if (customer) {
+                    // console.log(customer);
                     stripe.charges.create({
                         amount,
                         description: description,
@@ -172,6 +172,40 @@ app.post('/pay', (req, res) => {
 
 });
 
-app.listen(5000,function(){
+
+//payment refund
+app.post('/refund', (req, res) => {
+    console.log('refund called');
+    console.log(req.body);
+
+    var transation_id = req.body.t_id;
+    console.log(transation_id);
+    stripe.refunds.create({
+
+        charge: transation_id
+    }, function (err, refund) {
+        // asynchronously called
+        if (err) {
+            console.log('error');
+            console.log(err.message);
+            res.json(err.message);
+        }
+        else {
+            console.log('result');
+            console.log(refund);
+            res.json(refund);
+        }
+    });
+});
+
+
+//retriveing payments
+app.get('/payment', (req, res, next) => {
+    Payment.find(function (err, payments) {
+        res.json(payments);
+    })
+});
+
+app.listen(5000, function () {
     console.log("run the program 50000")
-})
+})  

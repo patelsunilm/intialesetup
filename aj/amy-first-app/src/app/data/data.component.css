@@ -1,0 +1,19 @@
+/* th {
+    background-color: #4CAF50;
+    color: white;
+} 
+/* .center {
+     margin-left: 500px;
+     
+} */
+/* span {
+    align-self: center;
+}  */
+
+:host /deep/ .data-table-row {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

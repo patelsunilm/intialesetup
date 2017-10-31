@@ -20,7 +20,11 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { RecipeService } from './recipes/recipe.service';
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentService } from './payment/payment.service';
-
+import { DataComponent } from './data/data.component';
+import { CommonModule } from "@angular/common/src/common";
+//import { DataTableModule } from 'angular-4-data-table';
+//import {NgxPaginationModule} from 'ngx-pagination';
+import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
 
 @NgModule({
   declarations: [
@@ -29,13 +33,14 @@ import { PaymentService } from './payment/payment.service';
     RecipesComponent,
     RecipeListComponent,
     RecipeDetailComponent,
-    RecipeItemComponent,
+    RecipeItemComponent, 
     ShoppingListComponent,
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
     RecipeEditComponent,
     PaymentComponent,
+    DataComponent,
     
   ],
   imports: [
@@ -43,9 +48,10 @@ import { PaymentService } from './payment/payment.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DataTableModule
   ],
-  providers: [ShoppingListService,RecipeService,PaymentService],
+  providers: [ShoppingListService,RecipeService,PaymentService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

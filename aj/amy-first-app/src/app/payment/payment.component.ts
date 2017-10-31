@@ -46,7 +46,7 @@ export class PaymentComponent implements OnInit {
         }
         self.paymentService.pay(payment).subscribe(result => {
           // console.log(result);
-          localStorage.setItem('msg', JSON.stringify(result));
+          // localStorage.setItem('msg', JSON.stringify(result));
 
           self.amount = null;
           self.email = '';
