@@ -8,6 +8,8 @@ import { RecipeDetailComponent} from './recipes/recipe-detail/recipe-detail.comp
 import { RecipeEditComponent} from './recipes/recipe-edit/recipe-edit.component';
 import { PaymentComponent } from './payment/payment.component';
 import { DataComponent } from './data/data.component';
+import { PlanComponent } from './plan/plan.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -19,7 +21,9 @@ const appRoutes: Routes = [
     ]},
     { path: 'shopping-list', component: ShoppingListComponent},
     { path: 'payment', component: PaymentComponent },
-    { path: 'data' ,component:DataComponent }
+    { path: 'data' ,component:DataComponent },
+    { path: 'plan' ,component: PlanComponent  },
+    { path: 'subscriptions', component:SubscriptionsComponent }
 ]
 
 @NgModule({

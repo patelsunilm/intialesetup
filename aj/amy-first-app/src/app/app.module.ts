@@ -22,9 +22,13 @@ import { PaymentComponent } from './payment/payment.component';
 import { PaymentService } from './payment/payment.service';
 import { DataComponent } from './data/data.component';
 import { CommonModule } from "@angular/common/src/common";
-//import { DataTableModule } from 'angular-4-data-table';
-//import {NgxPaginationModule} from 'ngx-pagination';
 import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
+import { Pipe, PipeTransform } from '@angular/core';
+import { PlanComponent } from './plan/plan.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';  
+
+
 
 @NgModule({
   declarations: [
@@ -41,6 +45,8 @@ import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
     RecipeEditComponent,
     PaymentComponent,
     DataComponent,
+    PlanComponent,
+    SubscriptionsComponent,
     
   ],
   imports: [
@@ -49,7 +55,8 @@ import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    DataTableModule
+    DataTableModule,
+    AngularFontAwesomeModule,
   ],
   providers: [ShoppingListService,RecipeService,PaymentService,],
   bootstrap: [AppComponent]

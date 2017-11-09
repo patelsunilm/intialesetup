@@ -1,89 +1,82 @@
- <div class="row">
-    <div class="col-xs-10">
+
+ <!-- <div *ngIf="!check">
+<div  style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+    <data-table headerTitle="Employees (Double click)" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)"
+        (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip">
+        <data-table-column [property]="'email'" [header]="'Email'"></data-table-column>
+        <data-table-column [property]="'description'" [header]="'Description'"></data-table-column>
+        <data-table-column [property]="'amount'" [header]="'amount'"></data-table-column>
+
+        
+        <data-table-column header="Actions">
+            <ng-template #dataTableHeader let-item="item">
+                <i>Actions</i>
+            </ng-template>
+            <ng-template #dataTableCell let-item="item">
+                <button (click)="refund(item)" class="btn btn-primary" value="Refund">Refund</button>
+               
+                <button (click)="cancle()" class="btn btn-danger">cancle</button>
+            </ng-template>
+            
+        </data-table-column>
+    </data-table>
+</div>
+</div>
+
+<div *ngIf="check" class="loader"></div>  -->
+
+ <div>
      
-      <hr>
-      <h1> <span>payment Data</span></h1>
-      <table class="table">
-          <thead>
-            <tr >
-               <th>Email</th>
-               <th>Amount</th>  
-               <th>Description</th>
-               <th>Transaction_details</th>
-               <th>Action</th>
-           </tr>
-           </thead>
-           <tbody *ngFor="let payment of payments ">
-            <tr>
-                <td>{{payment.email}} </td>
-                <td>{{payment.amount}} </td>
-                <td>{{payment.description}}</td> 
-                <td>{{payment.transaction_details}}</td>
-                <td><div>
-                 
-                    <input type="button" (click)="refund(payment)" value="Refund" class="btn btn-primary" >
-                </div></td>
-            </tr>
-             
-             
-             </tbody>
-        </table> 
-       
-    </div>
- </div> 
- 
-
-
-  <!-- <div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
-    <data-table 
-        headerTitle="Employees (Payments)"
+      <input type="text" [(ngModel)]="email"  id="search"  > 
+      <input type="submit" (click)="search()" name="search" value="search" class="btn btn-success   ">
+</div>
+ <div *ngIf="!check">
+ <div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+        
+        <data-table 
+        headerTitle="Employees (payments)"
         [items]="items"
         [itemCount]="itemCount"
         (reload)="reloadItems($event)"
 
         (rowClick)="rowClick($event)"
         (rowDoubleClick)="rowDoubleClick($event)"
-        [rowTooltip]="rowTooltip">
-        
-       
+        [rowTooltip]="rowTooltip"
+        >
         <data-table-column
-            [property]="'email'"
+             [property]="'email'"
             [header]="'Email'"
             [sortable]="true"
             [resizable]="true">
         </data-table-column>
-        <data-table-column 
-            [property]="'amount'"
-            [header]="'Amount'"
-            [sortable]="true">
-            <!-- <template  #dataTableCell let-item="item">
-                 <span>{{item.date | date:'yyyy-MM-dd'}}</span> 
-            </template> 
+        <data-table-column
+            [property]="'description'"
+            [header]="'Description'"
+            [sortable]="true"
+            [resizable]="true">
         </data-table-column>
         <data-table-column
-            property="description"
-            header="Description"
+            property="amount"
+            header="Amount"
+
             width="150px">
         </data-table-column>
-        <!-- <data-table-column
-            [property]="'transaction_details'"
-            [header]="'Transaction_details'"
-            [sortable]="true">
-        </data-table-column> -->
-        <!-- <data-table-column
-            [property]="'active'"
-            [header]="'Active'"
-            [width]="100"
-            [resizable]="true">
-            <template #dataTableHeader let-item="item">
-                <span style="color: rgb(232, 0, 0)">Active</span>
-            </template>
-            <template #dataTableCell let-item="item">
-                <span style="color: grey">
-                <span class="fa fa-check" *ngIf="item.active"></span>
-                <span class="fa fa-times" *ngIf="!item.active"></span>
-                </span>
-            </template>
-        </data-table-column> 
+        <data-table-column header="Actions">
+            <ng-template #dataTableHeader let-item="item">
+                <i>Actions</i>
+            </ng-template>
+            <ng-template #dataTableCell let-item="item">
+                <button (click)="refund(item)" class="btn btn-primary" value="Refund">Refund</button>
+               
+                <button (click)="cancle()" class="btn btn-danger">cancle</button>
+            </ng-template>
+            
+        </data-table-column>
     </data-table>
-</div> -->
+    
+</div>
+</div>  
+
+<div *ngIf="check" class="loader"></div> 
+
+ 

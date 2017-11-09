@@ -1,8 +1,7 @@
 const mongoose  = require('mongoose');
 
 const PaymentSchema = mongoose.Schema({
-
-  email:{
+   email:{
       type: String,
       require: true
   },

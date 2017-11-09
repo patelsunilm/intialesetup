@@ -145,7 +145,7 @@ app.post('/pay', (req, res) => {
                         });
                     }
                     else {
-                        console.log(details);
+                        // console.log(details);
                         res.json(
                             'Your Transation is done successfully '
                         );
@@ -175,8 +175,6 @@ app.post('/pay', (req, res) => {
 
 //payment refund
 app.post('/refund', (req, res) => {
-    console.log('refund called');
-    console.log(req.body);
 
     var transation_id = req.body.t_id;
     console.log(transation_id);
@@ -198,14 +196,215 @@ app.post('/refund', (req, res) => {
     });
 });
 
+//retrieve customer
+app.post('/customer', (req, res) => {
+    const customer_id = req.body.customer_id;
+    stripe.customers.retrieve(customer_id, function (err, customer) {
+        // asynchronously called
+        if (err) {
+            console.log(err);
+            res.json(err.message);
+        }
+        else {
+            // console.log(customer);
+            res.json(customer);
+        }
+    }
+    );
+});
 
-//retriveing payments
+//create subscriptions
+app.post('/createsub', function (req, res) {
+
+    console.log("Sub is working");
+    const card_number = req.body.card_number,
+        exp_month = req.body.exp_month,
+        exp_year = req.body.exp_year,
+        cvc = req.body.cvc
+    email = req.body.email;
+    plan = req.body.plan;
+
+    stripe.tokens.create({
+        card: {
+            "number": card_number,
+            "exp_month": exp_month,
+            "exp_year": exp_year,
+            "cvc": cvc
+        }
+    }, function (err, token) {
+        if (err) {
+            // console.log(err);
+            console.log(err.message);
+            res.json(err);
+        }
+        else {
+            stripe.customers.create({
+                email: email,
+                source: token.id
+            }, function (err, customer) {
+                if (err) {
+                    console.log(err);
+                    res.json({ err });
+                }
+                else {
+                    console.log(customer);
+                    stripe.subscriptions.create({
+                        customer: customer.id,
+                        items: [
+                            {
+                                plan: plan,
+                            },
+                        ]
+                    }, function (err, subscription) {
+                        if (err) {
+                            console.log(err);
+                            res.json({ err })
+                        }
+                        else {
+                            console.log(subscription);
+                            res.json({ subscription });
+                        }
+                    }
+                    );
+                }
+            }
+            );
+        }
+    });
+});
+
+// cancle subscriptions
+app.post('/subscriptionscancle', (req, res) => {
+    const subscriptions_id = req.body.st;
+    console.log(subscriptions_id);
+    stripe.subscriptions.del(subscriptions_id, { at_period_end: true }, function (err, subscription) {
+        if (err) {
+            //   console.log("err");
+            console.log(err);
+            res.json(err.message);
+        } else {
+            //   console.log("subscriptions")
+            //   console.log(subscription);
+            res.json(subscription);
+        }
+    });
+});
+
+
+// subscriptions update
+app.post('/subscriptionsupdate', (req, res) => {
+    const subscriptions_id = req.body.st;
+    console.log(subscriptions_id);
+    stripe.subscriptions.update(
+        subscriptions_id,
+        { tax_percent: 10 },
+        function (err, subscription) {
+            // asynchronously called
+            if (err) {
+                //   console.log("err");
+                console.log(err);
+                res.json(err.message);
+            } else {
+                //   console.log("subscriptions")
+                console.log(subscription);
+                res.json(subscription);
+            }
+        });
+});
+
+
+// payments 
 app.get('/payment', (req, res, next) => {
     Payment.find(function (err, payments) {
         res.json(payments);
     })
 });
 
-app.listen(5000, function () {
-    console.log("run the program 50000")
-})  
+//search data
+app.post('/search', function (req, res) {
+    var email = req.body.email;
+    console.log(email);
+    Payment.find({
+        'email': email,
+    }, function (err, payment) {
+        if (err) {
+            //   onErr(err, payment);
+            console.log(err);
+        } else {
+            console.log(payment);
+            res.json(payment);
+        }
+    });
+});
+
+// list all plan
+app.get('/plan', function (req, res) {
+    stripe.plans.list(
+        { limit: 10 },
+        function (err, plans) {
+            // asynchronously called
+            if (err) {
+                //   onErr(err, payment);
+                console.log(err);
+            } else {
+                //  console.log(plans);
+                res.json(plans);
+            }
+        }
+    );
+})
+
+//List subscriptions
+app.get('/subscriptions', function (req, res) {
+    stripe.subscriptions.list(
+        { limit: 10 },
+        function (err, subscriptions) {
+            // asynchronously called
+            if (err) {
+                //   onErr(err, payment);
+                console.log(err);
+            } else {
+                //  console.log(subscriptions);
+                res.json(subscriptions);
+            }
+
+        });
+});
+
+//List customer
+app.get('/customer', function (req, res) {
+    stripe.customers.list(
+        { limit: 10 },
+        function (err, customers) {
+            // asynchronously called
+            if (err) {
+                //   onErr(err, payment);
+                console.log(err);
+            } else {
+                //  console.log(customers);
+                res.json(customers);
+            }
+        }
+    );
+});
+
+app.listen(3000, function () {
+    console.log("run the program 3000")
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// http://devdocs.io/node/

@@ -1,0 +1,50 @@
+
+<!-- <div class="row">
+  <div class="col-xs-10">
+   
+    <hr>
+    <h1> <span>plan Data</span></h1>
+    <table class="table">
+        <thead>
+          <tr >
+             <th>PLAN</th>
+             <th>COST</th>  
+         </tr>
+         </thead>
+         <tbody *ngFor="let payment of payments ">
+          <tr>
+              <td>{{payment.interval}} </td>  
+              <td>{{payment.amount}} </td>
+          </tr>          
+            </tbody>
+      </table> 
+     </div>
+</div>  -->
+
+
+<div style="margin: auto; max-width: 1000px; margin-bottom: 50px; ">
+   <data-table 
+  headerTitle="Employees (plan)"
+  [items]="items"
+  [itemCount]="itemCounts"
+  (reload)="reloadItems($event)"
+
+  (rowClick)="rowClick($event)"
+  (rowDoubleClick)="rowDoubleClick($event)"
+  [rowTooltip]="rowTooltip"
+  >
+  <data-table-column
+       [property]="'interval'"
+      [header]="'Plan'"
+      [sortable]="true"
+      [resizable]="true">
+  </data-table-column>
+  <data-table-column
+      [property]="'amount'"
+      [header]="'Amount'"
+      [sortable]="true"
+      [resizable]="true">
+  </data-table-column>
+</data-table>
+
+</div>
