@@ -10,6 +10,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { DataComponent } from './data/data.component';
 import { PlanComponent } from './plan/plan.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
+import { LoginComponent } from './login/login.component'
+import { RegistrationComponent } from  './registration/registration.component'
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -23,7 +25,10 @@ const appRoutes: Routes = [
     { path: 'payment', component: PaymentComponent },
     { path: 'data' ,component:DataComponent },
     { path: 'plan' ,component: PlanComponent  },
-    { path: 'subscriptions', component:SubscriptionsComponent }
+    { path: 'subscriptions', component:SubscriptionsComponent },
+    { path: 'login',component: LoginComponent},
+    { path: 'registration', component:RegistrationComponent}
+
 ]
 
 @NgModule({

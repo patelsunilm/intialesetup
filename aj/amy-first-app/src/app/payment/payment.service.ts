@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Payment } from './payment';
- import 'rxjs';
+import { Payment } from './payment'; 
+import 'rxjs';
 
 @Injectable()
 export class PaymentService {
@@ -70,6 +70,21 @@ export class PaymentService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/subscriptionsupdate', data, { headers: headers }).map(res => res.json());
+}
+
+    //add reg form data
+    addcontact(newRegistration) {
+    console.log('addcontact service called');
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/regform',newRegistration,{ headers: headers }).map(res => res.json());
+}
+    //login user
+    login(user) {
+    console.log('login service called');
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/login',user,{ headers: headers }).map(res => res.json());
 }
 
 

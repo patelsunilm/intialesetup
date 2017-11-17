@@ -11,9 +11,14 @@
                  <li routerLinkActive="active"><a routerLink="/data">Table</a></li> 
                  <li routerLinkActive="active"><a routerLink="/plan"> Plan</a></li>
                  <li routerLinkActive="active"><a routerLink="/subscriptions">subscriptions</a></li>
-            </ul>   
+                
+            </ul> 
+            <ul class="nav navbar-nav navbar-right" >
+               <li routerLinkActive="active" ><a routerLink="/login">Login</a></li>
+            </ul>  
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" appDropdown>
+                    
                     <a style="cursor: pointer;" class="dropdwon-toggle" role="button">mange<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a style="cursor: pointer;">Save data</a></li>
@@ -21,6 +26,9 @@
                     </ul>
                 </li>   
             </ul>
+            <div>
+                <flash-messages></flash-messages>
+            </div>
         </div>
     </div>
 </nav>

@@ -3,9 +3,20 @@ var mongoose = require('mongoose');
 const router = express.Router();
 var bodyparser = require('body-parser');
 const Payment = require('./models/payments');
+const Registration = require('./models/registration');
 var cors = require('cors');
 var path = require('path');
+var md5 = require('md5');
+var nodemailer = require("nodemailer");
 
+var smtpTransport = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+        user: "patelsunil202@gmail.com",
+        pass: "Sunil.patel"
+    }
+});
 //Connect to Mongo DB
 mongoose.connect('mongodb://localhost/payment');
 
@@ -261,7 +272,7 @@ app.post('/createsub', function (req, res) {
                             res.json({ err })
                         }
                         else {
-                            console.log(subscription);
+                            // console.log(subscription);
                             res.json({ subscription });
                         }
                     }
@@ -331,7 +342,7 @@ app.post('/search', function (req, res) {
             //   onErr(err, payment);
             console.log(err);
         } else {
-            console.log(payment);
+            // console.log(payment);
             res.json(payment);
         }
     });
@@ -388,8 +399,120 @@ app.get('/customer', function (req, res) {
     );
 });
 
-app.listen(3000, function () {
-    console.log("run the program 3000")
+
+// add Registration form
+app.post('/regform', (req, res, next) => {
+    // console.log(req.body);
+    let newRegistration = {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password: md5(req.body.password),
+        birth_date: req.body.birth,
+        mobile: req.body.mobile
+    }
+    let reg = new Registration(newRegistration);
+    reg.save((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("suceess");
+        }
+    });
+});
+
+//login
+app.post('/login', function (req, res) {
+    //    console.log();
+    var email = req.body.email;
+    var password = req.body.password;
+
+    Registration.findOne({ email }, function (err, user) {
+        if (user) {
+            if (user.password == password) {
+                // console.log("sucesss");
+                response = {
+                    msg: 'Login Successfully',
+                    message: 'success'
+                }
+                res.json(response);
+            } else {
+                response = {
+                    error: 'Failed to Login',
+                    message: 'failed'
+                }
+                res.json(response);
+            }
+        }
+        else {
+            response = {
+                error: 'Failed to Login',
+                message: 'failed'
+            }
+            res.json(response);
+            // console.log("error");
+        }
+    });
+
+});
+
+//forgot password
+app.post('/forget', function (req, res) {
+    var email = req.body.email;
+    //  console.log(email);
+    var randomnumber = Math.random().toString().slice(2, 8);
+    // console.log(randomnumber);
+    var password = randomnumber;
+
+    Registration.find({
+        'email': email,
+      }, function (err, data) {
+        if (err) {
+             console.log(err);
+        } else {
+            // console.log(data);
+            // res.json(Registration);
+            const id = data[0]._id;
+            Registration.findByIdAndUpdate(id, { $set: { 'password': password } }, function (err, result) {
+                if (err) {
+                    console.log('error in update  is ' + err);
+                    res.json(err);
+                }
+                else {
+                    //  console.log('password update successfully ' + result);
+                    res.json(result);
+                    var receiver = result.email;
+                    //  console.log(data);
+                    var  mailOptions = {
+                        from:"<patelsunil202@gmail.com>",
+                        to: receiver,
+                        subject: 'Welcome',
+                       // text: 'Welcome' + data.password + '',
+                        html: `
+                            <b>Sunil Patel</b>
+                            <b>'password'</b>
+                              ` 
+                        }
+                    // console.log(mailOptions);
+                    smtpTransport.sendMail(mailOptions, function (error, response) {
+                        if (error) {
+                            console.log(error);
+                            res.end("error");
+                        } else {
+                            console.log(response);
+                            console.log("Message sent: " + response.message);
+                            // res.end("sent");
+                        }
+                    });
+                }
+            });
+        }
+     });
+});
+
+
+app.listen(4000, function () {
+    console.log("run the program 4000")
 });
 
 
@@ -403,8 +526,5 @@ app.listen(3000, function () {
 
 
 
-
-
-
-
+//http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 // http://devdocs.io/node/

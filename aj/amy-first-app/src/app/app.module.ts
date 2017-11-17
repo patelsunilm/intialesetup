@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FlashMessagesService } from 'ngx-flash-messages';
-
+import { FlashMessagesModule } from 'angular2-flash-messages'
 import { HeaderComponent } from './header/header.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
@@ -26,7 +26,10 @@ import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 import { Pipe, PipeTransform } from '@angular/core';
 import { PlanComponent } from './plan/plan.component';
-import { SubscriptionsComponent } from './subscriptions/subscriptions.component';  
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';  
 
 
 
@@ -47,6 +50,9 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     DataComponent,
     PlanComponent,
     SubscriptionsComponent,
+    LoginComponent,
+    RegistrationComponent,
+    ForgetpasswordComponent,
     
   ],
   imports: [
@@ -57,6 +63,7 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     AppRoutingModule,
     DataTableModule,
     AngularFontAwesomeModule,
+    FlashMessagesModule
   ],
   providers: [ShoppingListService,RecipeService,PaymentService,],
   bootstrap: [AppComponent]

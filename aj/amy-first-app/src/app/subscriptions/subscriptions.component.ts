@@ -53,17 +53,3 @@ export class SubscriptionsComponent implements OnInit {
 }
 
 
-// refund(itemResource) {
-//   this.check = true;
-//   var t_id = (itemResource.transaction_details.id);
-//   console.log(itemResource);
-//     const data = {
-//       t_id: t_id
-//    }
-//     this.paymentService.refund(data)
-//      .subscribe(refund => {
-//        console.log(refund);
-//        this.check = false;
-       
-//      })
-// }

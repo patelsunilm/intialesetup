@@ -30,7 +30,7 @@ export class RecipeEditComponent implements OnInit {
       );
   }
   onSubmit() {
-    //console.log(this.recipeForm);
+    //console.log(recipeForthis.m);
     // const newRecipe = new Recipe(
     //   this.recipeForm.value['name'],
     //   this.recipeForm.value['description'],
