@@ -12,12 +12,12 @@ export class PaymentService {
         console.log('service call');
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/pay', payment, { headers: headers }).map(res => res.json());
+        return this.http.post('http://localhost:4000/pay', payment, { headers: headers }).map(res => res.json());
     }
    
      //retriving payments
     getpayment() {
-    return this.http.get('http://localhost:3000/payment').map(res => res.json());
+    return this.http.get('http://localhost:4000/payment').map(res => res.json());
       
   }
      //refund
@@ -25,7 +25,7 @@ export class PaymentService {
      console.log('refund service called');
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
-     return this.http.post('http://localhost:3000/refund', refund, { headers: headers }).map(res => res.json());
+     return this.http.post('http://localhost:4000/refund', refund, { headers: headers }).map(res => res.json());
 }
     
 
@@ -35,26 +35,26 @@ export class PaymentService {
     //  console.log(searchemail);
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
-     return this.http.post('http://localhost:3000/search', searchemail , { headers: headers }).map(res => res.json());
+     return this.http.post('http://localhost:4000/search', searchemail , { headers: headers }).map(res => res.json());
 }
 
     //plan retrive 
     getplan() {
     console.log('plan service calle');
-    return this.http.get('http://localhost:3000/plan').map(res => res.json());
+    return this.http.get('http://localhost:4000/plan').map(res => res.json());
    
 }
    
     //List subscriptions
     getsubscriptions() {
     // console.log('subscriptions service calle');
-    return this.http.get('http://localhost:3000/subscriptions').map(res => res.json());  
+    return this.http.get('http://localhost:4000/subscriptions').map(res => res.json());  
 
 }
     //retrive customer
     getcustomer() {
     // console.log('customer service calle');
-    return this.http.get('http://localhost:3000/customer').map(res => res.json());  
+    return this.http.get('http://localhost:4000/customer').map(res => res.json());  
 
 }
     //subscriptions cancle
@@ -62,14 +62,14 @@ export class PaymentService {
     console.log('subscriptionscancle service called');
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/subscriptionscancle', data, { headers: headers }).map(res => res.json());
+    return this.http.post('http://localhost:4000/subscriptionscancle', data, { headers: headers }).map(res => res.json());
 }
     //subscriptions update
     subscriptionsupdate(data) {
     console.log('subscriptionsupdate service called');
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/subscriptionsupdate', data, { headers: headers }).map(res => res.json());
+    return this.http.post('http://localhost:4000/subscriptionsupdate', data, { headers: headers }).map(res => res.json());
 }
 
     //add reg form data
@@ -77,15 +77,24 @@ export class PaymentService {
     console.log('addcontact service called');
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/regform',newRegistration,{ headers: headers }).map(res => res.json());
+    return this.http.post('http://localhost:4000/regform',newRegistration,{ headers: headers }).map(res => res.json());
 }
     //login user
     login(user) {
     console.log('login service called');
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/login',user,{ headers: headers }).map(res => res.json());
+    return this.http.post('http://localhost:4000/login',user,{ headers: headers }).map(res => res.json());
 }
 
+
+
+ //login user
+  forgetpassword(user) {
+    console.log('forget service called');
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:4000/forget',user,{ headers: headers }).map(res => res.json());
+}
 
 }

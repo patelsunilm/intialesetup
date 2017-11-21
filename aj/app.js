@@ -42,12 +42,12 @@ app.get("/welcome", function (req, res) {
 app.post("/charge", (req, res) => {
     console.log("post request called");
     const card_number = req.body.card_number,
-        exp_month = req.body.exp_month,
-        exp_year = req.body.exp_year,
-        cvc = req.body.cvc,
-        amount = req.body.amount * 100,
-        email = req.body.email,
-        description = req.body.description;
+          exp_month = req.body.exp_month,
+          exp_year = req.body.exp_year,
+          cvc = req.body.cvc,
+          amount = req.body.amount * 100,
+          email = req.body.email,
+          description = req.body.description;
 
     stripe.tokens.create({
         card: {
@@ -229,9 +229,9 @@ app.post('/createsub', function (req, res) {
 
     console.log("Sub is working");
     const card_number = req.body.card_number,
-        exp_month = req.body.exp_month,
-        exp_year = req.body.exp_year,
-        cvc = req.body.cvc
+          exp_month = req.body.exp_month,
+          exp_year = req.body.exp_year,
+          cvc = req.body.cvc
     email = req.body.email;
     plan = req.body.plan;
 
@@ -407,7 +407,7 @@ app.post('/regform', (req, res, next) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        password: md5(req.body.password),
+        password: (req.body.password),
         birth_date: req.body.birth,
         mobile: req.body.mobile
     }
@@ -462,9 +462,10 @@ app.post('/forget', function (req, res) {
     //  console.log(email);
     var randomnumber = Math.random().toString().slice(2, 8);
     // console.log(randomnumber);
-    var password = randomnumber;
+    var pass = randomnumber;
 
     Registration.find({
+        
         'email': email,
       }, function (err, data) {
         if (err) {
@@ -473,35 +474,30 @@ app.post('/forget', function (req, res) {
             // console.log(data);
             // res.json(Registration);
             const id = data[0]._id;
-            Registration.findByIdAndUpdate(id, { $set: { 'password': password } }, function (err, result) {
+            Registration.findByIdAndUpdate(id, { $set: { 'password': pass } }, function (err, result) {
                 if (err) {
                     console.log('error in update  is ' + err);
                     res.json(err);
                 }
                 else {
-                    //  console.log('password update successfully ' + result);
-                    res.json(result);
-                    var receiver = result.email;
-                    //  console.log(data);
+                     console.log('password update successfully ' + result);
+                     res.json(result);
+                     
+                    var receiver = result.email
                     var  mailOptions = {
-                        from:"<patelsunil202@gmail.com>",
                         to: receiver,
                         subject: 'Welcome',
-                       // text: 'Welcome' + data.password + '',
-                        html: `
-                            <b>Sunil Patel</b>
-                            <b>'password'</b>
-                              ` 
-                        }
-                    // console.log(mailOptions);
-                    smtpTransport.sendMail(mailOptions, function (error, response) {
+                        text: '',
+                        html: '' +pass,
+                         }
+                        smtpTransport.sendMail(mailOptions, function (error, response) {
                         if (error) {
                             console.log(error);
                             res.end("error");
                         } else {
                             console.log(response);
                             console.log("Message sent: " + response.message);
-                            // res.end("sent");
+                            res.json(response);
                         }
                     });
                 }

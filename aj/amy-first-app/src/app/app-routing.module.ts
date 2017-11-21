@@ -12,6 +12,7 @@ import { PlanComponent } from './plan/plan.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
 import { LoginComponent } from './login/login.component'
 import { RegistrationComponent } from  './registration/registration.component'
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     { path: 'plan' ,component: PlanComponent  },
     { path: 'subscriptions', component:SubscriptionsComponent },
     { path: 'login',component: LoginComponent},
-    { path: 'registration', component:RegistrationComponent}
+    { path: 'registration', component:RegistrationComponent},
+    { path: 'forgetpassword', component:ForgetpasswordComponent}
 
 ]
 
